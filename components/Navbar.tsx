@@ -95,7 +95,9 @@ const Navbar = () => {
           <AvatarImage src="https://www.funpodium.net/img/logo/logo.svg" />
           <AvatarFallback>funpodium</AvatarFallback>
         </Avatar>
-        <h1 className="leading-[40px] font-black">Funpodium</h1>
+        <Link href="/">
+          <h1 className="leading-[40px] font-black">Funpodium</h1>
+        </Link>
       </div>
 
       <NavigationMenu>
@@ -134,7 +136,7 @@ const Navbar = () => {
         </NavigationMenuItem>
 
         <NavigationMenuItem>
-          <Link href="/docs" legacyBehavior passHref>
+          <Link href="/blog" legacyBehavior passHref>
             <NavigationMenuLink className={navigationMenuTriggerStyle()}>
               Blog
             </NavigationMenuLink>
