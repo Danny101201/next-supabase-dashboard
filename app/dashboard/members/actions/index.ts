@@ -4,6 +4,7 @@ import { CreateFormSchema } from "../components/create/CreateForm";
 import { readUserSession } from "@/lib/actions";
 import { Permission } from "@/type/permission";
 import { PostgrestSingleResponse } from "@supabase/supabase-js";
+import { revalidatePath } from "next/cache";
 
 export const createMember = async (data: CreateFormSchema) => {
 	const { data: userSession } = await readUserSession()
@@ -43,6 +44,8 @@ export const createMember = async (data: CreateFormSchema) => {
 	if (permissionResultError) {
 		throw permissionResultError
 	}
+
+	revalidatePath('/dashboard/members')
 	return permissionResult
 
 }

@@ -40,7 +40,7 @@ export default async function ListOfMembers() {
 								{permission.role}
 							</span>
 						</div>
-						<h1>{permission.created_at}</h1>
+						<h1>{new Date(permission.created_at).toDateString()}</h1>
 						<div>
 							<span
 								className={cn(

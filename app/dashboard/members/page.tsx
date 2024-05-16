@@ -3,12 +3,12 @@ import MemberTable from "./components/MemberTable";
 import SearchMembers from "./components/SearchMembers";
 import CreateMember from "./components/create/CreateMember";
 import { readUserSession } from "@/lib/actions";
+import { createSupabaseClientBasedOnRole } from "@/lib/supabase";
 
 
 
 export default async function Members() {
 	const { data: userSession } = await readUserSession();
-
 	const isAdmin = userSession?.session?.user.role === 'admin'
 
 	return (
