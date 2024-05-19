@@ -21,44 +21,44 @@ const productComponents: {
   href: string;
   description: string;
 }[] = [
-  {
-    title: "Content Management Service",
-    href: "/",
-    description:
-      "Our Content Management Service (CMS) is a software solution that simplifies web and mobile app content management, allowing for the easy generation of APIs.",
-  },
-  {
-    title: "micro-service",
-    href: "/",
-    description:
-      "We provide modularized software services for businesses, offering them a seamless integration experience. The solution incorporates a broad range of microservices to help keep the system robust, lean, and scalable.",
-  },
-  {
-    title: "PayBnB",
-    href: "/",
-    description:
-      "PayBnB is a consumer-facing payment service solution that simplifies purchase and exchange between suppliers and consumers. As its name suggests, PayBnB aims to create a community where shopping can be easy, decentralized, and barrier-free.",
-  },
-];
+    {
+      title: "Content Management Service",
+      href: "/",
+      description:
+        "Our Content Management Service (CMS) is a software solution that simplifies web and mobile app content management, allowing for the easy generation of APIs.",
+    },
+    {
+      title: "micro-service",
+      href: "/",
+      description:
+        "We provide modularized software services for businesses, offering them a seamless integration experience. The solution incorporates a broad range of microservices to help keep the system robust, lean, and scalable.",
+    },
+    {
+      title: "PayBnB",
+      href: "/",
+      description:
+        "PayBnB is a consumer-facing payment service solution that simplifies purchase and exchange between suppliers and consumers. As its name suggests, PayBnB aims to create a community where shopping can be easy, decentralized, and barrier-free.",
+    },
+  ];
 
 const expertiseComponents: {
   title: string;
   href: string;
   description: string;
 }[] = [
-  {
-    title: "Experience Design",
-    href: "/",
-    description:
-      "Our team of dedicated UI designers and UX researchers ensure that the design is not only aesthetically pleasing but also built on grounds of psychology and behavioral research.",
-  },
-  {
-    title: "Mobile App",
-    href: "/",
-    description:
-      "We provide mobile app development services to help online game companies streamline their transition from web browsers to native iOS and Android apps.",
-  },
-];
+    {
+      title: "Experience Design",
+      href: "/",
+      description:
+        "Our team of dedicated UI designers and UX researchers ensure that the design is not only aesthetically pleasing but also built on grounds of psychology and behavioral research.",
+    },
+    {
+      title: "Mobile App",
+      href: "/",
+      description:
+        "We provide mobile app development services to help online game companies streamline their transition from web browsers to native iOS and Android apps.",
+    },
+  ];
 
 const ListItem = React.forwardRef<
   React.ElementRef<"a">,

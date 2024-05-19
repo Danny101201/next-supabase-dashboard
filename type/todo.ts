@@ -1,7 +1,8 @@
-export type TodoType = {
+export type BlogType = {
   id: string;
   created_at: string;
   title: string;
-  status: string;
+  context: string;
+  category: string;
   create_by: string;
 };

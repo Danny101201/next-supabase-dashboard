@@ -1,15 +1,17 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
-import { TrashIcon, Pencil1Icon } from "@radix-ui/react-icons";
-import ListOfMembers from "./ListOfMembers";
+import { ListOfMembers } from "./ListOfMembers";
 import Table from "@/components/ui/Table";
 
-export default function MemberTable() {
+type MemberTableProps = {
+	search: string
+}
+export const MemberTable = ({ search }: MemberTableProps) => {
 	const tableHeader = ["Name", "Role", "Joined", "Status"];
 
 	return (
 		<Table headers={tableHeader}>
-			<ListOfMembers />
+			<ListOfMembers search={search} />
 		</Table>
 	);
 }

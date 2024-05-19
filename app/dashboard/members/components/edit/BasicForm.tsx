@@ -16,24 +16,45 @@ import {
 import { Input } from "@/components/ui/input";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { cn } from "@/lib/utils";
+import { Permission } from "@/type/permission";
+import { updateMemberById } from "../../actions";
+import { useTransition } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 const FormSchema = z.object({
 	name: z.string().min(2, {
 		message: "Name must be at least 2 characters.",
 	}),
 });
-
-export default function BasicForm() {
+type BasicFormProps = {
+	permission: Permission
+}
+export const BasicForm = ({ permission }: BasicFormProps) => {
+	const { toast } = useToast()
+	const [isPending, startTransaction] = useTransition()
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
-			name: "",
+			name: permission.members.name,
 		},
 	});
 
-	function onSubmit(data: z.infer<typeof FormSchema>) {
-		console.log(data)
-
+	const onSubmit = (data: z.infer<typeof FormSchema>) => {
+		startTransaction(async () => {
+			try {
+				const result = await updateMemberById(permission.member_id, data);
+				toast({
+					title: 'success updateUser'
+				})
+			} catch (e) {
+				if (e instanceof Error) {
+					toast({
+						title: 'failed updateUser',
+						description: e.message
+					})
+				}
+			}
+		})
 	}
 
 	return (
@@ -49,7 +70,7 @@ export default function BasicForm() {
 						<FormItem>
 							<FormLabel>Display Name</FormLabel>
 							<FormControl>
-								<Input placeholder="shadcn" {...field} />
+								<Input placeholder="please enter name" {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -59,6 +80,7 @@ export default function BasicForm() {
 					type="submit"
 					className="flex gap-2 items-center w-full"
 					variant="outline"
+					disabled={isPending}
 				>
 					Update{" "}
 					<AiOutlineLoading3Quarters

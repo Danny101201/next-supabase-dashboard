@@ -60,7 +60,6 @@ export const createSupbaseAdmin = async () => {
 
 export const createSupabaseClientBasedOnRole = async () => {
 	const { data: userSession } = await readUserSession();
-
 	const isAdmin = userSession?.session?.user.role === 'admin'
 	return isAdmin ? createSupbaseAdmin() : createSupbaseServerClient()
 }

@@ -23,21 +23,25 @@ import {
 } from "@/components/ui/select";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { cn } from "@/lib/utils";
+import { Permission } from "@/type/permission";
 
 const FormSchema = z.object({
 	role: z.enum(["admin", "user"]),
 	status: z.enum(["active", "unActive"]),
 });
 
-export default function AdvanceForm() {
+type AdvanceFormProps = {
+	permission: Permission
+}
+export const AdvanceForm = ({ permission }: AdvanceFormProps) => {
 	const roles = ["admin", "user"];
 	const status = ["active", "unActive"];
 
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
-			role: "user",
-			status: "active",
+			role: permission.role,
+			status: permission.status,
 		},
 	});
 

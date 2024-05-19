@@ -16,6 +16,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { cn } from "@/lib/utils";
+import { Permission } from "@/type/permission";
+import { useTransition } from "react";
+import { updateMemberById, updateUserById } from "../../actions";
+import { useToast } from "@/components/ui/use-toast";
+import { User } from "@supabase/supabase-js";
 
 const FormSchema = z
 	.object({
@@ -28,18 +33,41 @@ const FormSchema = z
 		path: ["confirm"],
 	});
 
-export default function AccountForm() {
+type AccountFormProps = {
+	permission: Permission
+}
+export const AccountForm = ({ permission }: AccountFormProps) => {
+	const [isPending, startTransaction] = useTransition()
+	const { toast } = useToast()
 	const form = useForm<z.infer<typeof FormSchema>>({
 		resolver: zodResolver(FormSchema),
 		defaultValues: {
-			email: "",
+			email: permission.members.email,
 			password: "",
 			confirm: "",
 		},
 	});
 
-	function onSubmit(data: z.infer<typeof FormSchema>) {
-		alert("You submitted the following values:")
+	const onSubmit = ({ email, password }: z.infer<typeof FormSchema>) => {
+		startTransaction(async () => {
+			try {
+				await Promise.all([
+					updateMemberById(permission.member_id, { email }),
+					updateUserById(permission.member_id, { email, password })
+				])
+
+				toast({
+					title: 'success updateUser'
+				})
+			} catch (e) {
+				if (e instanceof Error) {
+					toast({
+						title: 'failed updateUser',
+						description: e.message
+					})
+				}
+			}
+		})
 	}
 
 	return (
@@ -104,6 +132,7 @@ export default function AccountForm() {
 					type="submit"
 					className="flex gap-2 items-center w-full"
 					variant="outline"
+					disabled={isPending}
 				>
 					Update
 					<AiOutlineLoading3Quarters

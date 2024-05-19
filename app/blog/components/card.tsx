@@ -1,6 +1,8 @@
-import { TodoType } from "@/type/todo";
+import { cn } from "@/lib/utils";
+import { BlogType } from "@/type/todo";
 
-const BlogCard = ({ title, status }: Partial<TodoType>) => {
+const BlogCard = ({ title, category, context, created_at }: BlogType) => {
+
   return (
     <div className="p-4 w-full sm:w-1/2 md:w-1/3">
       <div className="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
@@ -9,16 +11,31 @@ const BlogCard = ({ title, status }: Partial<TodoType>) => {
           src="https://images.unsplash.com/photo-1598939821153-a4dd26ab5f91?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA7fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
           alt="blog post image"
         />
-        <div className="p-6 bg-white">
-          <h2 className="tracking-widest text-xs title-font font-medium text-gray-500 mb-1">
-            {status}
-          </h2>
-          <h1 className="title-font text-lg font-medium text-gray-900 mb-3">
-            {title}
-          </h1>
-          <p className="leading-relaxed mb-3 text-black">
-            Some quick example text to build on the card title and make up the
-            bulk of the cards content.
+        <div className="p-6 bg-white space-y-3">
+          <div className="flex items-center justify-between gap-5">
+            <h1 className="title-font text-xl font-medium text-gray-900">
+              {title}
+            </h1>
+
+            <span
+              className={cn(
+                " dark:bg-zinc-800 px-2 py-1 rounded-full shadow capitalize  border-[.5px] text-sm",
+                {
+                  "border-green-500 text-green-600 bg-green-200":
+                    category === "css",
+                  "border-zinc-300 dark:text-yellow-300 dark:border-yellow-700 px-4 bg-yellow-50":
+                    category === "js",
+                }
+              )}
+            >
+              {category}
+            </span>
+          </div>
+          <p className="leading-relaxed  text-black">
+            {context}
+          </p>
+          <p className="leading-relaxed  text-black">
+            {new Date(created_at).toDateString()}
           </p>
           <div className="flex items-center flex-wrap">
             <a

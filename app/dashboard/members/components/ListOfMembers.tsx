@@ -8,13 +8,18 @@ import { Pencil1Icon } from "@radix-ui/react-icons";
 import { readUserSession } from "@/lib/actions";
 import { EditForm } from "./edit/EditorForm";
 import { readMembers } from "../actions";
+import { DeleteButton } from "./delete/DeleteButton";
 
-export default async function ListOfMembers() {
+type ListOfMembersProps = {
+	search: string
+}
+export const ListOfMembers = async ({ search }: ListOfMembersProps) => {
 	const { data: userSession } = await readUserSession();
 	const isAdmin = userSession?.session?.user.role === 'admin'
-	const { data: permissions } = await readMembers()
+	const { data: permissions } = await readMembers({ name: search })
 
 	if (permissions === null) return null
+
 	return (
 		<div className="dark:bg-inherit bg-white mx-2 rounded-sm">
 			{permissions.map((permission, index) => {
@@ -58,10 +63,9 @@ export default async function ListOfMembers() {
 						</div>
 
 						<div className="flex gap-2 items-center">
-							<Button variant="outline">
-								<TrashIcon />
-								Delete
-							</Button>
+							{isAdmin && (
+								<DeleteButton id={permission.members.id} />
+							)}
 							<DailogForm
 								id="update-trigger"
 								title="Edit Member"
@@ -71,7 +75,7 @@ export default async function ListOfMembers() {
 										Edit
 									</Button>
 								}
-								form={<EditForm isAdmin={isAdmin} />}
+								form={<EditForm isAdmin={isAdmin} permission={permission} />}
 							/>
 						</div>
 					</div>

@@ -23,10 +23,9 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { createMember, updateMemberById } from "../../actions";
+import { createMember } from "../../actions";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 import { cn } from "@/lib/utils";
-import { AuthError, PostgrestError } from "@supabase/supabase-js";
 import { useToast } from "@/components/ui/use-toast";
 import { useTransition } from "react";
 

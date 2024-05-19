@@ -1,13 +1,12 @@
 import React from "react";
-import MemberTable from "./components/MemberTable";
-import SearchMembers from "./components/SearchMembers";
+import { MemberTable } from "./components/MemberTable";
+import { SearchMembers } from "./components/SearchMembers";
 import CreateMember from "./components/create/CreateMember";
 import { readUserSession } from "@/lib/actions";
-import { createSupabaseClientBasedOnRole } from "@/lib/supabase";
 
+export default async function Members({ searchParams }: { searchParams: { search: string } }) {
 
-
-export default async function Members() {
+	const { search } = searchParams || {}
 	const { data: userSession } = await readUserSession();
 	const isAdmin = userSession?.session?.user.role === 'admin'
 
@@ -17,12 +16,12 @@ export default async function Members() {
 			<div className="flex gap-2">
 				{isAdmin && (
 					<>
-						<SearchMembers />
+						<SearchMembers initialSearch={search} />
 						<CreateMember />
 					</>
 				)}
 			</div>
-			<MemberTable />
+			<MemberTable search={search} />
 		</div>
 	);
 }

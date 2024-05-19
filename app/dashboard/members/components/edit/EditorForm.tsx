@@ -1,13 +1,16 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import BasicForm from "./BasicForm";
-import AccountForm from "./AccountForm";
-import AdvanceForm from "./AdvanceForm";
+import { BasicForm } from "./BasicForm";
+import { AccountForm } from "./AccountForm";
+import { AdvanceForm } from "./AdvanceForm";
 import { cn } from "@/lib/utils";
+import { Permission } from "@/type/permission";
+import { getUserAccountById } from "../../actions";
 
 type EditFormProps = {
-	isAdmin: boolean
+	isAdmin: boolean,
+	permission: Permission
 }
-export const EditForm = ({ isAdmin }: EditFormProps) => {
+export const EditForm = async ({ isAdmin, permission }: EditFormProps) => {
 	return (
 		<Tabs defaultValue="basic" className="w-full space-y-5">
 			<TabsList className={cn("grid w-full ", isAdmin ? "grid-cols-3" : "grid-cols-1")}>
@@ -20,15 +23,15 @@ export const EditForm = ({ isAdmin }: EditFormProps) => {
 				)}
 			</TabsList>
 			<TabsContent value="basic">
-				<BasicForm />
+				<BasicForm permission={permission} />
 			</TabsContent>
 			{isAdmin && (
 				<>
 					<TabsContent value="account">
-						<AccountForm />
+						<AccountForm permission={permission} />
 					</TabsContent>
 					<TabsContent value="advance">
-						<AdvanceForm />
+						<AdvanceForm permission={permission} />
 					</TabsContent>
 				</>
 			)}
