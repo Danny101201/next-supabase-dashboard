@@ -2,69 +2,20 @@
 import React from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/Table";
 import { ColumnDef, useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table"
-import { Permission } from "@/type/permission";
-import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
-import { Pencil1Icon } from "@radix-ui/react-icons";
-import { DailogForm } from "./DialogForm";
+import { BlogType } from "@/type/blog";
 import { DeleteButton } from "./delete/DeleteButton";
-import { EditForm } from "./edit/EditorForm";
 
-export const getColumns: ({ isAdmin }: { isAdmin: boolean }) => ColumnDef<Permission>[] = ({ isAdmin }) => [
+export const columns: ColumnDef<BlogType>[] = [
 	{
-		header: "Name",
-		accessorKey: "members.name",
+		header: "Title",
+		accessorKey: "title",
 	},
 	{
-		header: "Email",
-		accessorKey: "members.email",
+		header: "Category",
+		accessorKey: "category",
 	},
 	{
-		header: "Role",
-		accessorKey: "role",
-		cell: ({ row }) => {
-			const role: string = row.getValue("role")
-			return (
-				<span
-					className={cn(
-						" dark:bg-zinc-800 px-2 py-1 rounded-full shadow capitalize  border-[.5px] text-sm",
-						{
-							"border-green-500 text-green-600 bg-green-200":
-								role === "admin",
-							"border-zinc-300 dark:text-yellow-300 dark:border-yellow-700 px-4 bg-yellow-50":
-								role === "user",
-						}
-					)}
-				>
-					{role}
-				</span>
-			)
-		},
-	},
-	{
-		header: "Status",
-		accessorKey: "status",
-		cell: ({ row }) => {
-			const status: string = row.getValue('status')
-			return (
-				<span
-					className={cn(
-						" dark:bg-zinc-800 px-2 py-1 rounded-full  capitalize text-sm border-zinc-300  border",
-						{
-							"text-green-600 px-4 dark:border-green-400 bg-green-200":
-								status === "active",
-							"text-red-500 bg-red-100 dark:text-red-300 dark:border-red-400":
-								status === "unActive",
-						}
-					)}
-				>
-					{status}
-				</span>
-			)
-		}
-	},
-	{
-		header: "Joined",
+		header: "Create At",
 		accessorKey: "created_at",
 		cell: ({ row }) => {
 			const created_at: string = row.getValue('created_at')
@@ -77,13 +28,11 @@ export const getColumns: ({ isAdmin }: { isAdmin: boolean }) => ColumnDef<Permis
 		id: 'action',
 		header: "action",
 		cell: ({ row }) => {
-			const permission = row.original
+			const blog = row.original
 			return (
 				<div className="flex gap-2 items-center">
-					{isAdmin && (
-						<DeleteButton id={permission.members.id} />
-					)}
-					<DailogForm
+					<DeleteButton id={blog.id} />
+					{/* <DailogForm
 						id="update-trigger"
 						title="Edit Member"
 						Trigger={
@@ -93,21 +42,20 @@ export const getColumns: ({ isAdmin }: { isAdmin: boolean }) => ColumnDef<Permis
 							</Button>
 						}
 						form={<EditForm isAdmin={isAdmin} permission={permission} />}
-					/>
+					/> */}
 				</div>
 			)
 		}
 	}
 ]
 
-type MemberTableProps = {
-	permissions: Permission[]
-	isAdmin: boolean
+type BlogTableProps = {
+	blogs: BlogType[]
 }
-export const MemberTable = ({ permissions, isAdmin }: MemberTableProps) => {
-	const columns = getColumns({ isAdmin })
+export const BlogTable = ({ blogs }: BlogTableProps) => {
+
 	const table = useReactTable({
-		data: permissions,
+		data: blogs,
 		columns,
 		getCoreRowModel: getCoreRowModel(),
 	})

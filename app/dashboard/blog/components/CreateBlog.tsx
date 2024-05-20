@@ -1,15 +1,15 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
 import { DailogForm } from "./DialogForm";
-import TodoForm from "./TodoForm";
+import { BlogForm } from "./BlogForm";
 
-export default function CreateTodo() {
+export const CreateBlog = () => {
 	return (
 		<DailogForm
 			id="create-trigger"
-			title="Create Todo"
+			title="Create Blog"
 			Trigger={<Button variant="outline">Create+</Button>}
-			form={<TodoForm isEdit={false} />}
+			form={<BlogForm isEdit={false} />}
 		/>
 	);
 }

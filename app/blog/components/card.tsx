@@ -1,14 +1,14 @@
 import { cn } from "@/lib/utils";
 import { BlogType } from "@/type/todo";
 
-const BlogCard = ({ title, category, context, created_at }: BlogType) => {
+const BlogCard = ({ title, category, context, created_at, img }: BlogType) => {
 
   return (
     <div className="p-4 w-full sm:w-1/2 md:w-1/3">
       <div className="h-full border-2 border-gray-200 border-opacity-60 rounded-lg overflow-hidden">
         <img
           className="lg:h-48 md:h-36 w-full object-cover object-center"
-          src="https://images.unsplash.com/photo-1598939821153-a4dd26ab5f91?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA7fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+          src={img}
           alt="blog post image"
         />
         <div className="p-6 bg-white space-y-3">
@@ -46,9 +46,9 @@ const BlogCard = ({ title, category, context, created_at }: BlogType) => {
               <svg
                 fill="none"
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 className="w-4 h-4 ml-2"
                 viewBox="0 0 24 24"
               >
@@ -59,9 +59,9 @@ const BlogCard = ({ title, category, context, created_at }: BlogType) => {
               <svg
                 fill="none"
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 className="w-4 h-4 mr-1"
                 viewBox="0 0 24 24"
               >
@@ -74,9 +74,9 @@ const BlogCard = ({ title, category, context, created_at }: BlogType) => {
               <svg
                 fill="none"
                 stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 className="w-4 h-4 mr-1"
                 viewBox="0 0 24 24"
               >

@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dialog";
 
 import React, { ReactNode } from "react";
-import MemberForm from "./TodoForm";
+import MemberForm from "./BlogForm";
 
 type DailogFormProps = {
 	title: string;

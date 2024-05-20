@@ -10,7 +10,7 @@ type EditFormProps = {
 	isAdmin: boolean,
 	permission: Permission
 }
-export const EditForm = async ({ isAdmin, permission }: EditFormProps) => {
+export const EditForm = ({ isAdmin, permission }: EditFormProps) => {
 	return (
 		<Tabs defaultValue="basic" className="w-full space-y-5">
 			<TabsList className={cn("grid w-full ", isAdmin ? "grid-cols-3" : "grid-cols-1")}>

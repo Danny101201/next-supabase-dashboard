@@ -1,17 +1,21 @@
 import React from "react";
-import TodoTable from "./components/TodoTable";
-import SearchTodo from "./components/SearchTodo";
-import CreateTodo from "./components/CreateTodo";
+import { CreateBlog } from "./components/CreateBlog";
+import { SearchBlog } from "./components/SearchBlog";
+import { BlogTable } from "./components/BlogTable";
+import { readBlogs } from "./actions";
 
-export default function Blog() {
+export default async function Blog() {
+
+	const { data: blogs } = await readBlogs({})
+
 	return (
 		<div className="space-y-5 w-full overflow-y-auto px-3">
-			<h1 className="text-3xl font-bold">Todo</h1>
+			<h1 className="text-3xl font-bold">Blog</h1>
 			<div className="flex gap-2">
-				<SearchTodo />
-				<CreateTodo />
+				<SearchBlog />
+				<CreateBlog />
 			</div>
-			<TodoTable />
+			<BlogTable blogs={blogs ?? []} />
 		</div>
 	);
 }

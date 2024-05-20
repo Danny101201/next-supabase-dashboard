@@ -2,7 +2,7 @@ import React from "react";
 import { DailogForm } from "./DialogForm";
 import { Button } from "@/components/ui/button";
 import { Pencil1Icon } from "@radix-ui/react-icons";
-import MemberForm from "./TodoForm";
+import { BlogForm } from "./BlogForm";
 
 export default function EditTodo() {
 	return (
@@ -15,7 +15,7 @@ export default function EditTodo() {
 					Edit
 				</Button>
 			}
-			form={<MemberForm isEdit={true} />}
+			form={<BlogForm isEdit={true} />}
 		/>
 	);
 }
