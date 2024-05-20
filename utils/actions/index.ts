@@ -1,5 +1,5 @@
 "use server";
-import { createSupbaseServerClientReadOnly } from "../supabase";
+import { createSupbaseServerClientReadOnly } from "../supabase/server";
 
 export async function readUserSession() {
 	const supabase = await createSupbaseServerClientReadOnly();

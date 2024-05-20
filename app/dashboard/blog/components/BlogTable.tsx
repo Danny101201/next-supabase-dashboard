@@ -4,6 +4,11 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { ColumnDef, useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table"
 import { BlogType } from "@/type/blog";
 import { DeleteButton } from "./delete/DeleteButton";
+import { DailogForm } from "./DialogForm";
+import { Button } from "@/components/ui/button";
+import { Pencil1Icon } from "@radix-ui/react-icons";
+import { EditForm } from "./edit/EditForm";
+
 
 export const columns: ColumnDef<BlogType>[] = [
 	{
@@ -28,21 +33,21 @@ export const columns: ColumnDef<BlogType>[] = [
 		id: 'action',
 		header: "action",
 		cell: ({ row }) => {
-			const blog = row.original
+			const { id, title, category, context } = row.original
 			return (
 				<div className="flex gap-2 items-center">
-					<DeleteButton id={blog.id} />
-					{/* <DailogForm
+					<DeleteButton id={id} />
+					<DailogForm
 						id="update-trigger"
-						title="Edit Member"
+						title="Edit Blog"
 						Trigger={
 							<Button variant="outline">
 								<Pencil1Icon />
 								Edit
 							</Button>
 						}
-						form={<EditForm isAdmin={isAdmin} permission={permission} />}
-					/> */}
+						form={<EditForm id={id} defaultValues={{ title, category, context }} />}
+					/>
 				</div>
 			)
 		}

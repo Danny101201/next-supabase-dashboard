@@ -20,7 +20,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
-import { createBlog } from "../actions";
+import { createBlog } from "../../actions";
 import { useTransition } from "react";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -34,7 +34,7 @@ const createBlogFormSchema = z.object({
 });
 export type CreateBlogFormSchema = z.infer<typeof createBlogFormSchema>
 
-export const BlogForm = ({ isEdit }: { isEdit: boolean }) => {
+export const CreateForm = () => {
 	const [isPending, startTransaction] = useTransition()
 	const { toast } = useToast()
 	const form = useForm<CreateBlogFormSchema>({
@@ -47,26 +47,21 @@ export const BlogForm = ({ isEdit }: { isEdit: boolean }) => {
 
 
 	const onSubmit = (data: CreateBlogFormSchema) => {
-		if (isEdit) {
-			//  handleUpdateMember
-		} else {
-			startTransaction(async () => {
-				try {
-					const result = await createBlog(data);
+		startTransaction(async () => {
+			try {
+				const result = await createBlog(data);
+				toast({
+					title: 'success createBlog'
+				})
+			} catch (e) {
+				if (e instanceof Error) {
 					toast({
-						title: 'success createBlog'
+						title: 'failed createBlog',
+						description: e.message
 					})
-				} catch (e) {
-					if (e instanceof Error) {
-						toast({
-							title: 'failed createBlog',
-							description: e.message
-						})
-					}
 				}
-			})
-			// handleCreateMember
-		}
+			}
+		})
 	}
 
 	return (

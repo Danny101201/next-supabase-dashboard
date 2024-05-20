@@ -2,9 +2,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { BasicForm } from "./BasicForm";
 import { AccountForm } from "./AccountForm";
 import { AdvanceForm } from "./AdvanceForm";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/utils";
 import { Permission } from "@/type/permission";
-import { getUserAccountById } from "../../actions";
 
 type EditFormProps = {
 	isAdmin: boolean,

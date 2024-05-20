@@ -1,10 +1,11 @@
 "use server";
-import { readUserSession } from "@/lib/actions";
-import { createSupabaseClientBasedOnRole } from "@/lib/supabase";
+import { readUserSession } from "@/utils/actions";
 import { BlogType } from "@/type/blog";
 import { PostgrestSingleResponse } from "@supabase/supabase-js";
 import { revalidatePath } from "next/cache";
-import { CreateBlogFormSchema } from "../components/BlogForm";
+import { CreateBlogFormSchema } from "../components/create/CreateForm";
+import { EditBlogFormSchema } from "../components/edit/EditForm";
+import { createSupabaseClientBasedOnRole } from "@/utils/supabase/server";
 
 export const createBlog = async (data: CreateBlogFormSchema) => {
 	const { title, category, context } = data || {}
@@ -26,12 +27,25 @@ export const createBlog = async (data: CreateBlogFormSchema) => {
 
 	revalidatePath('/dashboard/blog')
 }
-export const updateBlogById = (id: string) => {
-	console.log("update todo");
+export const updateBlogById = async (id: string, data: EditBlogFormSchema) => {
+	const { data: userSession } = await readUserSession()
+	if (userSession === null) {
+		throw new Error('unAuthorized')
+	}
+	const supbase = await createSupabaseClientBasedOnRole()
+	const { error: blogResultError } = await supbase.from('blog').update(data).eq("id", id)
+	if (blogResultError) {
+		throw blogResultError
+	}
+	revalidatePath('/dashboard/blog')
 }
 export const deleteBlogById = async (id: string) => {
+	const { data: userSession } = await readUserSession()
+	if (userSession === null) {
+		throw new Error('unAuthorized')
+	}
 	const supbase = await createSupabaseClientBasedOnRole()
-	const { data, error: blogResultError } = await supbase.from('blog').delete().eq("id", id)
+	const { error: blogResultError } = await supbase.from('blog').delete().eq("id", id)
 	if (blogResultError) {
 		throw blogResultError
 	}
@@ -39,15 +53,16 @@ export const deleteBlogById = async (id: string) => {
 }
 
 type ReadBlogSearchParams = {
-	title: string
+	search: string
 }
-export const readBlogs: ({ title }: Partial<ReadBlogSearchParams>) => Promise<PostgrestSingleResponse<BlogType[]>> = async ({ title }) => {
+export const readBlogs: ({ search }: Partial<ReadBlogSearchParams>) => Promise<PostgrestSingleResponse<BlogType[]>> = async ({ search }) => {
 	const supbase = await createSupabaseClientBasedOnRole()
-	if (title) {
+	if (search) {
 		return supbase
 			.from('blog')
 			.select('*')
-			.eq('members.name', title)
+			.eq('title', search)
+			.order("created_at", { ascending: false })
 	}
-	return supbase.from('blog').select('*')
+	return supbase.from('blog').select('*').order("created_at", { ascending: false })
 }

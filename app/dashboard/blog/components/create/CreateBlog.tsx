@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
-import { DailogForm } from "./DialogForm";
-import { BlogForm } from "./BlogForm";
+import { DailogForm } from "../DialogForm";
+import { CreateForm } from "./CreateForm";
 
 export const CreateBlog = () => {
 	return (
@@ -9,7 +9,7 @@ export const CreateBlog = () => {
 			id="create-trigger"
 			title="Create Blog"
 			Trigger={<Button variant="outline">Create+</Button>}
-			form={<BlogForm isEdit={false} />}
+			form={<CreateForm />}
 		/>
 	);
 }

@@ -2,7 +2,7 @@
 import React from "react";
 import { PersonIcon, CrumpledPaperIcon, CubeIcon } from "@radix-ui/react-icons";
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/utils";
 import { usePathname } from "next/navigation";
 
 export default function NavLinks() {
@@ -18,12 +18,7 @@ export default function NavLinks() {
 			href: "/dashboard/blog",
 			text: "Blog",
 			Icon: CrumpledPaperIcon,
-		},
-		{
-			href: "/dashboard/notes",
-			text: "Notes",
-			Icon: CubeIcon,
-		},
+		}
 	];
 
 	return (

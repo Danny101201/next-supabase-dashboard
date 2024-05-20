@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/dialog";
 
 import React, { ReactNode } from "react";
-import MemberForm from "./BlogForm";
 
 type DailogFormProps = {
 	title: string;
@@ -30,9 +29,6 @@ export const DailogForm = ({
 			<DialogContent className="sm:max-w-[425px]">
 				<DialogHeader>
 					<DialogTitle>{title}</DialogTitle>
-					<DialogDescription>
-						Make changes to your profile here. Click save when
-					</DialogDescription>
 				</DialogHeader>
 				{form}
 			</DialogContent>

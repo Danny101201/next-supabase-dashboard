@@ -22,7 +22,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/utils";
 import { Permission } from "@/type/permission";
 
 const FormSchema = z.object({
@@ -45,7 +45,7 @@ export const AdvanceForm = ({ permission }: AdvanceFormProps) => {
 		},
 	});
 
-	function onSubmit(data: z.infer<typeof FormSchema>) {
+	const onSubmit = (data: z.infer<typeof FormSchema>) => {
 		console.log(data)
 	}
 

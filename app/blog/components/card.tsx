@@ -1,5 +1,5 @@
-import { cn } from "@/lib/utils";
-import { BlogType } from "@/type/todo";
+import { cn } from "@/utils/utils";
+import { BlogType } from "@/type/blog";
 
 const BlogCard = ({ title, category, context, created_at, img }: BlogType) => {
 

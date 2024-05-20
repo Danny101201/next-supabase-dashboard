@@ -1,7 +1,7 @@
 "use server";
-import { createSupabaseClientBasedOnRole, createSupbaseAdmin, createSupbaseServerClient } from "@/lib/supabase";
+import { createSupabaseClientBasedOnRole, createSupbaseAdmin } from "@/utils/supabase/server";
 import { CreateFormSchema } from "../components/create/CreateForm";
-import { readUserSession } from "@/lib/actions";
+import { readUserSession } from "@/utils/actions";
 import { Member, Permission } from "@/type/permission";
 import { PostgrestSingleResponse, UserAttributes, UserResponse } from "@supabase/supabase-js";
 import { revalidatePath } from "next/cache";
@@ -65,19 +65,15 @@ export const updateMemberById = async (id: string, data: Partial<Member>) => {
 }
 
 export const updateUserById = async (id: string, data: Partial<UserAttributes>) => {
+	const { data: userSession } = await readUserSession()
+	if (userSession.session?.user.role !== 'admin') {
+		throw new Error('you are not allowed to update User')
+	}
 	const supabase = await createSupabaseClientBasedOnRole()
 	const { error } = await supabase.auth.admin.updateUserById(id, data)
 	if (error) {
 		throw error
 	}
-}
-
-export const updatePermissionByUserId = async (id: string, data: Permission) => {
-	const supabase = await createSupabaseClientBasedOnRole()
-	const { error } = await supabase
-		.from('permission')
-		.update(data)
-		.eq('id', 1)
 }
 
 export const deleteMemberById = async (uid: string) => {
@@ -100,19 +96,17 @@ export const deleteMemberById = async (uid: string) => {
 }
 
 type ReadMembersSearchParams = { name: string }
-export const readMembers: ({ name }: Partial<ReadMembersSearchParams>) => Promise<PostgrestSingleResponse<Permission[]>> = async ({ name }) => {
+export const readMembers = async ({ name }: Partial<ReadMembersSearchParams>) => {
 	const supbase = await createSupabaseClientBasedOnRole()
 	if (name) {
 		return supbase
 			.from('permission')
 			.select('*, members!inner(*)')
 			.eq('members.name', name)
+			.order("created_at", { ascending: false })
 	}
-	return supbase.from('permission').select('*, members!inner(*)')
+	return supbase
+		.from('permission')
+		.select('*, members!inner(*)')
+		.order("created_at", { ascending: true, referencedTable: 'members' })
 }
-
-export const getUserAccountById: (id: string) => Promise<UserResponse> = async (id) => {
-	const supbase = await createSupabaseClientBasedOnRole()
-	return supbase.auth.admin.getUserById(id)
-}
-

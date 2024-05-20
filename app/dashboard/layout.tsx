@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import SideNav from "./components/SideNav";
 import ToggleSidebar from "./components/ToggleSidebar";
 import MobileSideNav from "./components/MobileSideNav";
-import { readUserSession } from "@/lib/actions";
+import { readUserSession } from "@/utils/actions";
 import { redirect } from "next/navigation";
 
 export default async function Layout({ children }: { children: ReactNode }) {

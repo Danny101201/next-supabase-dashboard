@@ -16,7 +16,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/utils";
 import { loginWithEmailAndPassword } from "../actions";
 import { AuthTokenResponse } from "@supabase/supabase-js";
 
@@ -36,10 +36,10 @@ export default function AuthForm() {
 	});
 
 	async function onSubmit(data: z.infer<typeof FormSchema>) {
+
 		const { error } = JSON.parse(
 			await loginWithEmailAndPassword(data)
 		) as AuthTokenResponse;
-
 		if (error) {
 			alert('Fail to login')
 		} else {

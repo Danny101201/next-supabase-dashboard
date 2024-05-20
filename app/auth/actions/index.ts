@@ -1,6 +1,5 @@
 "use server";
-
-import { createSupbaseServerClient } from "@/lib/supabase";
+import { createSupbaseServerClient } from "@/utils/supabase/server";
 import { redirect } from "next/navigation";
 
 export async function loginWithEmailAndPassword(data: {

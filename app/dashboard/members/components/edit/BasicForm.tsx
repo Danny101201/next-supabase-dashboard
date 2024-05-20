@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/utils";
 import { Permission } from "@/type/permission";
 import { updateMemberById } from "../../actions";
 import { useTransition } from "react";

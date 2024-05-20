@@ -7,8 +7,8 @@ export type Member = {
 export type Permission = {
   id: string;
   created_at: string;
-  role: "user" | "admin";
-  status: "active" | "unActive";
+  role: string;
+  status: string;
   member_id: string;
   members: Member;
 }

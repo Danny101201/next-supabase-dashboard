@@ -1,7 +1,7 @@
 import React from "react";
 import NavLinks from "./NavLinks";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/utils";
 import ModeToggle from "../blog/components/ToggleDarkMode";
 import { Button } from "@/components/ui/button";
 import SignOut from "./SignOut";

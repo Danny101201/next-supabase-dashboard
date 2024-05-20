@@ -13,7 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 
 import Link from "next/link";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/utils";
 import React from "react";
 
 const productComponents: {
@@ -87,7 +87,11 @@ const ListItem = React.forwardRef<
 
 ListItem.displayName = "ListItem";
 
-const Navbar = () => {
+type NavbarProps = {
+  isAuth: boolean
+}
+const Navbar = ({ isAuth }: NavbarProps) => {
+  console.log(isAuth)
   return (
     <div className="w-full flex align-middle justify-between py-3">
       <div className="logo flex align-middle gap-[16px]">
@@ -147,9 +151,15 @@ const Navbar = () => {
       <NavigationMenu>
         <NavigationMenuList>
           <NavigationMenuItem>
-            <Link href="/auth">
-              <Button variant="outline">Login</Button>
-            </Link>
+            {isAuth ? (
+              <Link href="/dashboard">
+                <Button variant="outline">dashboard</Button>
+              </Link>
+            ) : (
+              <Link href="/auth">
+                <Button variant="outline">Login</Button>
+              </Link>
+            )}
           </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>

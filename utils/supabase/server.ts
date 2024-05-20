@@ -2,11 +2,12 @@ import { createServerClient, type CookieOptions } from "@supabase/ssr";
 import { cookies } from "next/headers";
 import { createClient } from '@supabase/supabase-js'
 import { readUserSession } from "../actions";
+import { Database } from "../database.types";
 
 export const createSupbaseServerClientReadOnly = async () => {
 	const cookieStore = cookies();
 
-	return createServerClient(
+	return createServerClient<Database>(
 		process.env.NEXT_PUBLIC_SUPABASE_URL!,
 		process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
 		{
@@ -22,7 +23,7 @@ export const createSupbaseServerClientReadOnly = async () => {
 export const createSupbaseServerClient = async () => {
 	const cookieStore = cookies();
 
-	return createServerClient(
+	return createServerClient<Database>(
 		process.env.NEXT_PUBLIC_SUPABASE_URL!,
 		process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
 		{
@@ -41,10 +42,8 @@ export const createSupbaseServerClient = async () => {
 	);
 }
 
-
-
 export const createSupbaseAdmin = async () => {
-	const supabase = createClient(
+	const supabase = createClient<Database>(
 		process.env.NEXT_PUBLIC_SUPABASE_URL!,
 		process.env.SUPABASE_SERVICE_ROLE_KEY!,
 		{

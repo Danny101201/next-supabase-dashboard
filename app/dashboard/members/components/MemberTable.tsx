@@ -3,7 +3,7 @@ import React from "react";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/Table";
 import { ColumnDef, useReactTable, getCoreRowModel, flexRender } from "@tanstack/react-table"
 import { Permission } from "@/type/permission";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/utils";
 import { Button } from "@/components/ui/button";
 import { Pencil1Icon } from "@radix-ui/react-icons";
 import { DailogForm } from "./DialogForm";

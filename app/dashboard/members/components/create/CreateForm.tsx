@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/select";
 import { createMember } from "../../actions";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
-import { cn } from "@/lib/utils";
+import { cn } from "@/utils/utils";
 import { useToast } from "@/components/ui/use-toast";
 import { useTransition } from "react";
 
